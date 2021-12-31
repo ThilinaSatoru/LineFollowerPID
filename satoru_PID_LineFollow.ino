@@ -24,7 +24,7 @@ float PID_output = 0;  // calculated PID value/the difference
 short mode;     // mode of the sensor postion logic
 int sum;        // sum of digital sensor array. 'if all black sum=8'
 bool isGoal;
-#include "BebuggFunctions.h"
+#include "DebuggFunctions.h"
 #include "MortorFunctions.h"
 
 void setup() { /////////////////////////////////////////  START SETUP  ///////////////////////////////////////////////////////////////////////////////////////////
