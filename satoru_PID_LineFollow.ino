@@ -62,7 +62,7 @@ void loop() { //////////////////////////////////////////  START LOOP   /////////
         break;
         
       case TURN_RIGHT:
-        delay(1000);
+        delay(300);
         while(sum == 0 ){
           Serial.print("+++ while R +++");
           M_turn_Right90();
@@ -72,7 +72,7 @@ void loop() { //////////////////////////////////////////  START LOOP   /////////
         break;
         
       case TURN_LEFT:
-        delay(1000);
+        delay(300);
         while(sum == 0){
           Serial.print("+++ while L+++");
           M_turn_Left90();
@@ -106,11 +106,9 @@ void checkReading(){
   if(sum == 0){                              // if sum=0, all readings are '0'  and  all white 
     mode = OFF_LINE;
   }
-  
-  else if(sum < 4){
-    mode = ON_LINE;
+  else if(sum == 8){
+    mode = CROSS;
   }
-  
   else if(sum > 2 && sum < 7){                          // if there are several lines detected as '1'
       //mode = ON_LINE;
       if(reading[0] == 1 && reading[1] == 1 && reading[2] == 1){
@@ -120,16 +118,16 @@ void checkReading(){
         mode = ON_LINE;
       }
       else if(reading[5] == 1 && reading[6] == 1 && reading[7] == 1){
-        mode = TURN_RIGHT;
+        right_LCross();
       }   
   }
-  
-  else if(sum == 8 || sum == 7){
-    mode = CROSS;
+  else if(sum < 4){
+    mode = ON_LINE;
   }
+  
 }
-void calculatePID(){                   // PID error algorithm
 
+void calculatePID(){                   // PID error algorithm
   float PP = 0, II = 0, DD = 0;
   float previousError = 0, previousI = 0;
   float I = I + error;
@@ -140,9 +138,9 @@ void calculatePID(){                   // PID error algorithm
   
   PID_output = (PP + II + DD) / 1000;  // devide by 1000, because coefficients are thousand values
   previousError = error;
-  
   //Serial.print(PID_output);
 }
+
 void motorPIDcontrol(){ // Apply PID to motors
   LeftSpeed = initSpeed + PID_output;
   RightSpeed = initSpeed - PID_output;
@@ -160,18 +158,35 @@ void motorPIDcontrol(){ // Apply PID to motors
   M_drive(LeftSpeed,RightSpeed);
 }
 
+void right_LCross(){
+  M_stop();
+  delay(50);
+  M_drive(100,100);
+  delay(200);
+  M_stop();
+  delay(10);
+  IR_read();
+  delay(10);
+  if(sum > 1 && sum < 4){
+    mode = ON_LINE;
+  }
+  else{
+     mode = TURN_RIGHT;
+  }
+}
+
 void doCross(){
   M_stop();
   delay(50);
   M_drive(100,100);
   delay(200);
   M_stop();
-
+  delay(10);
   IR_read();
-  
+  delay(10);
   if(sum > 1 && sum < 4){
-    M_turn_Left180();
-    delay(1200);
+    M_turn_Left90();
+    delay(500);
   }
     
   else if(sum > 6){
