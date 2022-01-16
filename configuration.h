@@ -29,8 +29,8 @@ const float Kd = 9.0;    ////// D => Derivative      future errors   ////
 
 
 //////////////////////////////////////////////////////////////////////// 
-float maxSpeed = 230;           // max speed the mortor can handle /////                                         
-float initSpeed = 190;          // initialSpeed < 255(max)         /////
+float maxSpeed = 180;           // max speed the mortor can handle /////                                         
+float initSpeed = 100;          // initialSpeed < 255(max)         /////
 float LeftSpeed = 0;            // Left mortor speed               /////
 float RightSpeed = 0;           // Right Mortor Speed              /////
 ////////////////////////////////////////////////////////////////////////
