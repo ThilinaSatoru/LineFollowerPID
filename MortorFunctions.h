@@ -26,16 +26,16 @@ void M_back(){
   analogWrite(IND_M2, 100);  // right backwards
 }
 void M_turn_Left180(){ // 180 turn
-  analogWrite(INA_M1, 160); // left backwards
+  analogWrite(INA_M1, 130); // left backwards
   analogWrite(INB_M1, 0);   // left forwards
-  analogWrite(INC_M2, 180); // right forwards
+  analogWrite(INC_M2, 150); // right forwards
   analogWrite(IND_M2, 0);   // right backwards
 }
 void M_turn_Right180(){ // 180 turn
   analogWrite(INA_M1, 0); // left backwards
-  analogWrite(INB_M1, 180);   // left forwards
+  analogWrite(INB_M1, 150);   // left forwards
   analogWrite(INC_M2, 0); // right forwards
-  analogWrite(IND_M2, 160);   // right backwards
+  analogWrite(IND_M2, 130);   // right backwards
 }
 
 
